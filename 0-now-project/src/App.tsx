@@ -1,126 +1,48 @@
 import { useState } from "react";
 import "./App.css";
+
 // 🛠️ 專案說明
-// 請建立一個「待辦清單 / 備忘錄列表」功能：
-
-// 有一個 input 欄位與「新增」按鈕
-
-// 使用者輸入內容 → 點擊新增 → 顯示在下方列表中
-
-// 每一項任務都要有唯一 key（可用時間戳或 UUID）
-
-// 顯示所有已新增的項目
-
+// 建立一個簡易的登入狀態切換功能：
+// 使用 useState 建立 isLoggedIn 狀態（布林值）
+// 預設為未登入狀態
+// 畫面應根據狀態顯示對應文字：
+// 登入前：「請先登入」
+// 登入後：「歡迎回來，使用者！」
+// 有一個按鈕可切換登入狀態（切換文字：登入 / 登出）
 // 💡 額外挑戰（完成後可選）
-// 新增「刪除」按鈕，可刪除個別筆記
-
-// 每一項顯示序號（如：#1、#2、#3）
-
-type Note = {
-  id: number;
-  addtime: string;
-  content: string;
-};
-
-const flexStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-const btnStyle: React.CSSProperties = {
-  padding: "0px 10px",
-  margin: "3px",
-};
-const inputStyle: React.CSSProperties = {
-  textAlign: "center",
-  width: "300px",
-  margin: "3px",
-};
+// 顯示目前登入狀態（用不同顏色或圖示表示）
+// 根據狀態改變背景顏色或樣式（登入為綠色，登出為紅色）
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [input, setInput] = useState("");
-  const [delInput, setDelInput] = useState(0);
-  const [noteId, setNoteId] = useState(1);
-  const handleAddNote = () => {
-    if (input.trim() === "") return;
-    const newNote: Note = {
-      id: noteId,
-      addtime: new Date()
-        .toISOString()
-        .replace("T", " ")
-        .replaceAll("-", "/")
-        .substring(0, 19),
-      content: input,
-    };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginUser, setLoginUser] = useState("");
 
-    setNoteId(noteId + 1);
-    setNotes([newNote, ...notes]);
-    setInput("");
-  };
-  const handleDeleteNote = () => {
-    if (delInput <= 0) return;
-    setNotes(notes.filter((_, idx) => idx !== delInput - 1));
-    setDelInput(0);
+  const welcomeTxt = isLoggedIn ? `Welcome back, ${loginUser}` : "Please Login";
+  const btnText = isLoggedIn ? "Logout" : "Login";
+  const loginState = isLoggedIn ? `${loginUser} Login` : "Noone Login";
+  const handleLoggin = (user: string) => {
+    if (!user) return;
+    if (isLoggedIn) {
+      setLoginUser("");
+      setIsLoggedIn(false);
+    } else {
+      setLoginUser(user);
+      setIsLoggedIn(true);
+    }
   };
   return (
-    <div style={{ ...flexStyle, flexDirection: "column" }}>
-      <h1>To Do List</h1>
-      <div style={{ ...flexStyle, flexDirection: "row" }}>
-        <input
-          style={inputStyle}
-          type="text"
-          value={input}
-          placeholder="What do you want to do today?"
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        ></input>
-        <button style={btnStyle} onClick={handleAddNote}>
-          Add
-        </button>
-      </div>
-      <div style={{ ...flexStyle, flexDirection: "row" }}>
-        <input
-          type="number"
-          style={inputStyle}
-          value={delInput > 0 ? delInput : ""}
-          min={1}
-          placeholder="Which one do you finish?"
-          onChange={(e) => {
-            const val = parseInt(e.target.value);
-            setDelInput(isNaN(val) || val < 1 ? 1 : val);
-          }}
-        ></input>
-        <button style={btnStyle} onClick={handleDeleteNote}>
-          Delete
-        </button>
+    <div className="App">
+      <div className="Welcome">
+        <span>{welcomeTxt}</span>
       </div>
 
-      {notes.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Add Time</th>
-              <th>Content</th>
-            </tr>
-          </thead>
-          <tbody>
-            {notes.map((n, idx) => {
-              return (
-                <tr>
-                  <td>{n.id}</td>
-                  <td>{n.addtime}</td>
-                  <td>{n.content}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <p>Today's To-Do List finished!</p>
-      )}
+      <button className="Login" onClick={() => handleLoggin("test")}>
+        {btnText}
+      </button>
+
+      <div className={isLoggedIn ? "LoginState" : "LogoutState"}>
+        <span>{loginState}</span>
+      </div>
     </div>
   );
 }
