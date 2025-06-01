@@ -9,7 +9,7 @@ const NoteList: React.FC<Props> = ({ notes }) => {
   notes.sort((a, b) => new Date(b.id).getTime() - new Date(a.id).getTime());
   return (
     <div className="notes_container">
-      {notes.map((note, idx) => (
+      {notes.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}
     </div>
