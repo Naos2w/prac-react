@@ -1,0 +1,80 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: 500;
+  margin: 25px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.name {
+  width: 400px;
+  font-size: 20px;
+}
+
+.note {
+  width: 400px;
+  font-size: 20px;
+}
+
+textarea {
+  resize: none;
+}
+
+#button {
+  font-size: 20px;
+}
+
+.wrp {
+  max-height: 500px;
+  overflow-y: auto;
+  margin: 25px;
+}
+
+.article {
+  gap: 15px;
+}
+
+table {
+  margin: 15px;
+  border: 2px solid rgb(255, 255, 255);
+  letter-spacing: 1px;
+  max-width: 400px;
+}
+
+thead {
+  background-color: rgb(41, 99, 138);
+}
+
+th,
+td {
+  border: 1px solid rgb(255, 255, 255);
+  padding: 8px 10px;
+}
+
+tbody > tr > td:nth-child(2) {
+  text-align: center;
+  word-break: break-all;
+  white-space: normal;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: rgb(101, 101, 104);
+}
+
+tbody > tr > td:first-child,
+tbody > tr > td:nth-child(2) {
+  text-align: center;
+}

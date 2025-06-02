@@ -66,15 +66,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-.App.light {
-  background-color: white;
-  color: black;
-  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-}
-
-.App.dark {
-  background-color: #1a1a1a;
-  color: white;
-  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-}
