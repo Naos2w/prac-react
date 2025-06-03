@@ -1,5 +1,5 @@
 import type { ToDoListType, Action } from "../types";
-import { todoReducer } from "../reducer/todoReducer";
+
 type TodoListProps = {
   todos: ToDoListType[];
   dispatch: React.Dispatch<Action>;
@@ -16,7 +16,7 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, dispatch }) => {
               type="checkbox"
               checked={todo.checked}
               title="Completed"
-              onChange={(e) => {
+              onChange={() => {
                 dispatch({
                   type: "TOGGLE_TODO",
                   idx: idx,

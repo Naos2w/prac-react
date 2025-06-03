@@ -1,4 +1,4 @@
-import { useReducer, type ActionDispatch } from "react";
+import { useReducer } from "react";
 import type { ToDoListType, Action } from "../types";
 
 const initialState: ToDoListType[] = [];
