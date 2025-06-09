@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Action, Task } from "../types/task";
 import type { FilterAction, Filter } from "../types/filter";
 import { v4 as uuidv4 } from "uuid";
@@ -16,7 +16,6 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Typography,
-  Icon,
 } from "@mui/material";
 import CategoryIcon from "@mui/icons-material/Category";
 import TaskIcon from "@mui/icons-material/Task";
@@ -28,7 +27,6 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import SelectAllIcon from "@mui/icons-material/SelectAll";
 import SortIcon from "@mui/icons-material/Sort";
-import { Sort } from "@mui/icons-material";
 
 type TaskFormProps = {
   tasks: Task[];
