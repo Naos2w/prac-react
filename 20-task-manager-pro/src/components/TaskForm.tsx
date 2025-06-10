@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import type { Action, Task } from "../types/task";
 import type { FilterAction, Filter } from "../types/filter";
 import { v4 as uuidv4 } from "uuid";
@@ -17,6 +17,7 @@ import {
   ToggleButton,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import CategoryIcon from "@mui/icons-material/Category";
 import TaskIcon from "@mui/icons-material/Task";
 import AddIcon from "@mui/icons-material/Add";
@@ -27,12 +28,16 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import SelectAllIcon from "@mui/icons-material/SelectAll";
 import SortIcon from "@mui/icons-material/Sort";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
+import { getMuiTheme } from "../theme/getMUITheme";
+import ThemeToggle from "./ThemeToggle";
 
 type TaskFormProps = {
   tasks: Task[];
   dispatch: React.Dispatch<Action>;
   filter: Filter;
   filterDispatch: React.Dispatch<FilterAction>;
+  displayedTasks: Task[];
 };
 
 export const TaskForm: React.FC<TaskFormProps> = ({
@@ -40,17 +45,18 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   dispatch,
   filter,
   filterDispatch,
+  displayedTasks,
 }) => {
-  const uuid = uuidv4();
+  const theme = useTheme();
   const textRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
   const removeEnabled =
     Array.isArray(tasks) && tasks.every((t) => !t.completed);
   const resetEnabled = Array.isArray(tasks) && tasks.length <= 0;
-  const resetNumbers = Array.isArray(tasks)
-    ? tasks
-        .map((t, idx) => {
-          if (t.completed) return idx;
+  const removeNumbers = Array.isArray(displayedTasks)
+    ? displayedTasks
+        .map((t) => {
+          if (t.completed) return t.id;
         })
         .filter((t) => t !== undefined)
     : [];
@@ -76,11 +82,10 @@ export const TaskForm: React.FC<TaskFormProps> = ({
     setTextError(false);
     setCategoryError(false);
 
-    console.log("Submit");
     dispatch({
       type: "ADD_TASK",
       task: {
-        id: uuid,
+        id: uuidv4(),
         completed: false,
         category: category,
         text: text,
@@ -94,6 +99,13 @@ export const TaskForm: React.FC<TaskFormProps> = ({
     setText("");
     setCategory("");
     // categoryRef.current?.focus();
+  };
+  const handleClickRemove = (event: React.MouseEvent<HTMLElement>) => {
+    dispatch({ type: "DELETE_TASK", idx: removeNumbers });
+  };
+  const handleClickRemoveAll = (event: React.MouseEvent<HTMLElement>) => {
+    dispatch({ type: "RESET" });
+    filterDispatch({ type: "RESET" });
   };
   const handleClickFilter = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -120,6 +132,121 @@ export const TaskForm: React.FC<TaskFormProps> = ({
     const value = event.target.value;
     setSearchText(value);
     filterDispatch({ type: "SET_SEARCHTEXT", text: value });
+  };
+  const handleClickGenData = () => {
+    const fakeData: Task[] = [
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Learning",
+        text: "Read an article about JavaScript closures",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Work",
+        text: "Prepare slides for Monday's meeting",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Chores",
+        text: "Clean the kitchen",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Fitness",
+        text: "Do 15 minutes of stretching",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Learning",
+        text: "Complete a React TypeScript tutorial",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Personal",
+        text: "Call mom and dad",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Work",
+        text: "Reply to client emails",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Fitness",
+        text: "Go for a 30-minute run",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Personal",
+        text: "Buy groceries for the week",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+      {
+        id: uuidv4(),
+        completed: false,
+        category: "Work",
+        text: "Finish the quarterly report",
+        create_time: new Date()
+          .toISOString()
+          .replace("T", " ")
+          .replace(/-/g, "/")
+          .substring(0, 19),
+      },
+    ];
+    dispatch({ type: "GEN_DATA", tasks: fakeData });
   };
   return (
     <Box
@@ -157,7 +284,13 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             overflow: { xs: "hidden" },
           }}
         >
-          <CategoryIcon sx={{ color: "#01161E", mr: 1, my: 0.5 }} />
+          <CategoryIcon
+            sx={{
+              color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
+              mr: 1,
+              my: 0.5,
+            }}
+          />
           <TextField
             fullWidth
             id="input-category"
@@ -186,7 +319,13 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             overflow: { xs: "hidden" },
           }}
         >
-          <TaskIcon sx={{ color: "#01161E", mr: 1, my: 0.5 }} />
+          <TaskIcon
+            sx={{
+              color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
+              mr: 1,
+              my: 0.5,
+            }}
+          />
           <TextField
             fullWidth
             id="input-task-content"
@@ -217,23 +356,21 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Click to remove selected tasks ">
-            <IconButton
-              disabled={removeEnabled}
-              onClick={() =>
-                dispatch({ type: "DELETE_TASK", idx: resetNumbers })
-              }
-            >
+          <Tooltip title="Click to remove selected tasks">
+            <IconButton disabled={removeEnabled} onClick={handleClickRemove}>
               <RemoveIcon />
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Click to remove all tasks ">
-            <IconButton
-              disabled={resetEnabled}
-              onClick={() => dispatch({ type: "RESET" })}
-            >
+          <Tooltip title="Click to remove all tasks">
+            <IconButton disabled={resetEnabled} onClick={handleClickRemoveAll}>
               <ClearIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Click to add fake tasks">
+            <IconButton onClick={handleClickGenData}>
+              <AdsClickIcon />
             </IconButton>
           </Tooltip>
 
@@ -331,6 +468,8 @@ export const TaskForm: React.FC<TaskFormProps> = ({
               <SortIcon />
             </IconButton>
           </Tooltip>
+
+          <ThemeToggle />
         </ButtonGroup>
       </Box>
     </Box>

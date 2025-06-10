@@ -7,4 +7,5 @@ export interface Filter {
 export type FilterAction =
   | { type: "SET_CATEGORY"; option: string }
   | { type: "SET_COMPLETED"; option: string }
-  | { type: "SET_SEARCHTEXT"; text: string };
+  | { type: "SET_SEARCHTEXT"; text: string }
+  | { type: "RESET" };

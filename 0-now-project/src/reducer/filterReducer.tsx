@@ -11,6 +11,8 @@ export const filterReducer: React.Reducer<Filter, FilterAction> = (
       return { ...state, completed: action.option };
     case "SET_SEARCHTEXT":
       return { ...state, searchText: action.text };
+    case "RESET":
+      return { category: "", completed: "all", searchText: "" };
     default:
       return state;
   }

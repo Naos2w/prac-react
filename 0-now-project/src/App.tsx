@@ -1,7 +1,7 @@
 import { useContext, useEffect, useReducer } from "react";
 import "./App.css";
 import { TaskForm } from "./components/TaskForm";
-import { taskReducer } from "./reducer/taskReducer";
+import { taskReducer, displayedTaskReducer } from "./reducer/taskReducer";
 import { filterReducer } from "./reducer/filterReducer";
 import { TaskList } from "./components/TaskList";
 import { ThemeContext } from "./context/ThemeContext";
@@ -13,6 +13,11 @@ function App() {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
+  const [displayedTasks, dTaskDispatch] = useReducer(
+    displayedTaskReducer,
+    [],
+    () => []
+  );
   const [filterPart, filterDispatch] = useReducer(
     filterReducer,
     undefined,
@@ -31,7 +36,6 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
   useEffect(() => {
-    console.log(`filterPart: ${filterPart.searchText}`);
     localStorage.setItem("filters", JSON.stringify(filterPart));
   }, [filterPart]);
   return (
@@ -41,8 +45,15 @@ function App() {
         dispatch={dispatch}
         filter={filterPart}
         filterDispatch={filterDispatch}
+        displayedTasks={displayedTasks}
       />
-      <TaskList tasks={tasks} dispatch={dispatch} filter={filterPart} />
+      <TaskList
+        tasks={tasks}
+        dispatch={dispatch}
+        filter={filterPart}
+        displayedTasks={displayedTasks}
+        dTasksDispatch={dTaskDispatch}
+      />
     </div>
   );
 }
