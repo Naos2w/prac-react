@@ -65,8 +65,9 @@ export const TaskList: React.FC<TaskListProps> = ({
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
         marginX: "10px",
+        marginBottom: 1.5,
         gap: "20px",
       }}
     >

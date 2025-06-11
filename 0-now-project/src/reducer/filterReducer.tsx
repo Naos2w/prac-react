@@ -8,7 +8,10 @@ export const filterReducer: React.Reducer<Filter, FilterAction> = (
     case "SET_CATEGORY":
       return { ...state, category: action.option };
     case "SET_COMPLETED":
-      return { ...state, completed: action.option };
+      return {
+        ...state,
+        completed: action.option as "all" | "uncompleted" | "completed",
+      };
     case "SET_SEARCHTEXT":
       return { ...state, searchText: action.text };
     case "RESET":

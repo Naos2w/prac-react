@@ -10,6 +10,17 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       backgroundColor: mode === "light" ? "#115293" : "#e3f2fd",
     },
   };
+  const hoverStyle = {
+    "&:hover": {
+      backgroundColor: mode === "light" ? "#1976d2" : "#90caf9",
+      color: mode === "light" ? "#fff" : "#000",
+    },
+  };
+  const transitionStyle = {
+    "&": {
+      transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
+    },
+  };
 
   return createTheme({
     palette: {
@@ -25,10 +36,19 @@ export const getMuiTheme = (mode: "light" | "dark") => {
           }),
     },
     components: {
-      // 在 components 裡
+      MuiCssBaseline: {
+        styleOverrides: {
+          "*": {
+            transition:
+              "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
+          },
+        },
+      },
       MuiMenuItem: { styleOverrides: { root: selectedStyle } },
       MuiListItem: { styleOverrides: { root: selectedStyle } },
       MuiToggleButton: { styleOverrides: { root: selectedStyle } },
+      MuiIconButton: { styleOverrides: { root: hoverStyle } },
+      MuiCard: { styleOverrides: { root: transitionStyle } },
     },
   });
 };

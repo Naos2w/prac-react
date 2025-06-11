@@ -4,11 +4,11 @@ import { TaskForm } from "./components/TaskForm";
 import { taskReducer, displayedTaskReducer } from "./reducer/taskReducer";
 import { filterReducer } from "./reducer/filterReducer";
 import { TaskList } from "./components/TaskList";
-import { ThemeContext } from "./context/ThemeContext";
+import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material/styles";
 
 function App() {
   // const [tasks, dispatch] = taskReducer();
-  const { theme } = useContext(ThemeContext);
   const [tasks, dispatch] = useReducer(taskReducer, [], () => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
@@ -38,8 +38,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem("filters", JSON.stringify(filterPart));
   }, [filterPart]);
+
+  const theme = useTheme();
   return (
-    <div className={`App ${theme}`}>
+    <Box
+      sx={{
+        backgroundColor: theme.palette.mode === "light" ? "#FCFCFC" : "#05070A",
+      }}
+    >
       <TaskForm
         tasks={tasks}
         dispatch={dispatch}
@@ -54,7 +60,7 @@ function App() {
         displayedTasks={displayedTasks}
         dTasksDispatch={dTaskDispatch}
       />
-    </div>
+    </Box>
   );
 }
 

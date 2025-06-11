@@ -1,5 +1,5 @@
 import type { Task, Action } from "../types/task";
-import { Box, Card, Checkbox, Typography } from "@mui/material";
+import { Box, Card, Checkbox, Typography, useTheme } from "@mui/material";
 
 type TaskItemProps = {
   task: Task;
@@ -8,6 +8,7 @@ type TaskItemProps = {
 };
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task, id, dispatch }) => {
+  const theme = useTheme();
   return (
     <Card
       sx={{
@@ -16,6 +17,13 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, id, dispatch }) => {
         justifyContent: "space-between",
         padding: "10px",
         borderRadius: "8px",
+        backgroundColor: theme.palette.mode === "light" ? "" : "#05070A",
+        boxShadow:
+          theme.palette.mode === "dark"
+            ? `0px 2px 1px -1px rgba(80, 80, 80, 0.2),
+                0px 1px 1px 0px rgba(80, 80, 80, 0.14),
+                0px 1px 3px 0px rgba(80, 80, 80, 0.12)`
+            : theme.shadows[8], // 預設陰影 in light mode
       }}
     >
       <Box sx={{ flexGrow: 1 }}>

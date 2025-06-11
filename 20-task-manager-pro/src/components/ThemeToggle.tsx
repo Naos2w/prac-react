@@ -9,11 +9,11 @@ const ThemeToggle = () => {
 
   return theme === "light" ? (
     <IconButton onClick={toggleTheme}>
-      <DarkModeIcon />
+      <DarkModeIcon sx={{ color: "#bcbcbc" }} />
     </IconButton>
   ) : (
     <IconButton onClick={toggleTheme}>
-      <LightModeIcon />
+      <LightModeIcon sx={{ color: "#f1c232" }} />
     </IconButton>
   );
 };
