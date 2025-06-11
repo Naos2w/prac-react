@@ -43,7 +43,11 @@ function App() {
   return (
     <Box
       sx={{
+        minHeight: "100vh",
+        width: "100%",
         backgroundColor: theme.palette.mode === "light" ? "#FCFCFC" : "#05070A",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <TaskForm

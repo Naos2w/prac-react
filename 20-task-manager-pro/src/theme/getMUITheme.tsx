@@ -16,6 +16,16 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       color: mode === "light" ? "#fff" : "#000",
     },
   };
+  const colorStyle = {
+    "&": {
+      color: mode === "light" ? "#000" : "#fff",
+    },
+  };
+  const disabledColorStyle = {
+    "&.Mui-disabled": {
+      color: mode === "light" ? "{}" : "#555",
+    },
+  };
   const transitionStyle = {
     "&": {
       transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
@@ -33,6 +43,10 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       background: {
         default: mode === "light" ? "#fff" : "#121212",
       },
+      text: {
+        primary: mode === "light" ? "#000" : "#fff",
+        secondary: mode === "light" ? "#555" : "#ccc",
+      },
     },
     components: {
       ...baseTheme.components,
@@ -47,7 +61,11 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       MuiMenuItem: { styleOverrides: { root: selectedStyle } },
       MuiListItem: { styleOverrides: { root: selectedStyle } },
       MuiToggleButton: { styleOverrides: { root: selectedStyle } },
-      MuiIconButton: { styleOverrides: { root: hoverStyle } },
+      MuiIconButton: {
+        styleOverrides: {
+          root: { ...hoverStyle, ...colorStyle, ...disabledColorStyle },
+        },
+      },
       MuiCard: { styleOverrides: { root: transitionStyle } },
     },
   });

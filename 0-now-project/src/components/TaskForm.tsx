@@ -20,13 +20,7 @@ import {
   ButtonGroup,
   IconButton,
   Tooltip,
-  Popover,
-  InputLabel,
-  Select,
-  MenuItem,
   type SelectChangeEvent,
-  ToggleButtonGroup,
-  ToggleButton,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -35,10 +29,6 @@ import TaskIcon from "@mui/icons-material/Task";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ClearIcon from "@mui/icons-material/Clear";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import SelectAllIcon from "@mui/icons-material/SelectAll";
 import SortIcon from "@mui/icons-material/Sort";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 
@@ -146,7 +136,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({
         marginBottom: "20px",
       }}
     >
-      <h1>Task Manager</h1>
+      <Typography variant="h3" sx={{ my: 1, mx: 5 }}>
+        Task Manager
+      </Typography>
       <Box
         sx={{
           boxSizing: "border-box",

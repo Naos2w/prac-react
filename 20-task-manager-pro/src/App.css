@@ -11,21 +11,7 @@
   height: 100vh;
   width: 100vw;
   overflow: auto;
-  background: linear-gradient(
-    180deg,
-    rgba(235, 251, 255, 1) 0%,
-    rgba(224, 255, 237, 1) 50%,
-    rgba(255, 253, 227, 1) 100%
-  );
   /* padding: 2rem; */
-}
-.App.dark {
-  background-color: #1a1a1a;
-  color: white;
-}
-.App.light {
-  background-color: rgb(228, 228, 228);
-  color: rgb(58, 58, 58);
 }
 
 .form {
