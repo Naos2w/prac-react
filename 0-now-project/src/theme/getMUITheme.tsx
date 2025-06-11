@@ -21,21 +21,21 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
     },
   };
+  const baseTheme = createTheme();
 
   return createTheme({
     palette: {
+      ...baseTheme.palette, // ✅ 保留所有預設
       mode,
-      ...(mode === "light"
-        ? {
-            primary: { main: "#1976d2" },
-            background: { default: "#fff" },
-          }
-        : {
-            primary: { main: "#90caf9" },
-            background: { default: "#121212" },
-          }),
+      primary: {
+        main: mode === "light" ? "#1976d2" : "#90caf9",
+      },
+      background: {
+        default: mode === "light" ? "#fff" : "#121212",
+      },
     },
     components: {
+      ...baseTheme.components,
       MuiCssBaseline: {
         styleOverrides: {
           "*": {

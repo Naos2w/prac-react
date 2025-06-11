@@ -268,7 +268,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             filter={filter}
             filterDispatch={filterDispatch}
             disabled={hasNoTasks}
-            theme={theme}
           />
 
           <Tooltip title="Click to sort by time">

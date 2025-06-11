@@ -17,19 +17,18 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import SelectAllIcon from "@mui/icons-material/SelectAll";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import type { Theme } from "@mui/material/styles";
 
 type FilterButtonProps = {
   tasks: Task[];
   filter: Filter;
   filterDispatch: React.Dispatch<FilterAction>;
   disabled: boolean;
-  theme: Theme;
 };
 
 export const FilterButton: React.FC<FilterButtonProps> = ({
@@ -37,7 +36,6 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
   filter,
   filterDispatch,
   disabled,
-  theme,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchText, setSearchText] = useState("");
@@ -70,6 +68,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
     setSearchText(value);
     filterDispatch({ type: "SET_SEARCHTEXT", text: value });
   };
+  const theme = useTheme();
   return (
     <Box>
       <Tooltip title="Click to filter tasks ">
