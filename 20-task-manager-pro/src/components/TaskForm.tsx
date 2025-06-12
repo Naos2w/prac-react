@@ -126,40 +126,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             display: "flex",
             alignItems: "center",
             flexGrow: 1, // 彈性展開
-            minWidth: { xs: "100%", sm: "200px" }, // 小螢幕滿版
-            maxWidth: { md: "200px" }, // 桌機限制最大寬
-            overflow: { xs: "hidden" },
-          }}
-        >
-          <CategoryIcon
-            sx={{
-              color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
-              mr: 1,
-              my: 0.5,
-            }}
-          />
-          <TextField
-            fullWidth
-            id="input-category"
-            label="Category"
-            variant="standard"
-            ref={categoryRef}
-            required
-            value={category}
-            error={categoryError}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCategory(event.target.value);
-              if (categoryError && event.target.value) setCategoryError(false);
-            }}
-            helperText="Input the category"
-            slotProps={{ htmlInput: { maxLength: 20 } }}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            flexGrow: 1, // 彈性展開
             minWidth: { xs: "100%", sm: "400px" }, // 小螢幕滿版
             maxWidth: { md: "400px" }, // 桌機限制最大寬
             overflow: { xs: "hidden" },
@@ -189,6 +155,41 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             slotProps={{ htmlInput: { maxLength: 150 } }}
           />
         </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexGrow: 1, // 彈性展開
+            minWidth: { xs: "100%", sm: "200px" }, // 小螢幕滿版
+            maxWidth: { md: "200px" }, // 桌機限制最大寬
+            overflow: { xs: "hidden" },
+          }}
+        >
+          <CategoryIcon
+            sx={{
+              color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
+              mr: 1,
+              my: 0.5,
+            }}
+          />
+          <TextField
+            fullWidth
+            id="input-category"
+            label="Category"
+            variant="standard"
+            ref={categoryRef}
+            required
+            value={category}
+            error={categoryError}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setCategory(event.target.value);
+              if (categoryError && event.target.value) setCategoryError(false);
+            }}
+            helperText="Input the category"
+            slotProps={{ htmlInput: { maxLength: 20 } }}
+          />
+        </Box>
+
         <ButtonGroup
           sx={{
             display: "flex",
