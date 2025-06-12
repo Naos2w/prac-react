@@ -11,6 +11,5 @@ export type Action =
   | { type: "TOGGLE_TASK"; id: string }
   | { type: "DELETE_TASK"; idx: string[] }
   | { type: "GEN_DATA"; tasks: Task[] }
+  | { type: "REORDER_TASKS"; tasks: Task[] }
   | { type: "RESET" };
-
-export type dTaskAct = { type: "UPDATE_TASK"; tasks: Task[] };

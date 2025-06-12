@@ -77,8 +77,8 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
             color:
               filter.category || filter.completed !== "all" || filter.searchText
                 ? theme.palette.mode === "light"
-                  ? "#1976d2"
-                  : "#90caf9"
+                  ? "#1976d2 !important"
+                  : "#90caf9 !important"
                 : {},
           }}
           disabled={disabled}

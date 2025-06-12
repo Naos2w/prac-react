@@ -1,11 +1,12 @@
-import { useContext, useEffect, useReducer } from "react";
+import { useMemo, useEffect, useReducer } from "react";
 import "./App.css";
 import { TaskForm } from "./components/TaskForm";
-import { taskReducer, displayedTaskReducer } from "./reducer/taskReducer";
+import { taskReducer } from "./reducer/taskReducer";
 import { filterReducer } from "./reducer/filterReducer";
-import { TaskList } from "./components/TaskList";
+import { getFilteredAndSortedTasks } from "./utils/taskFilterAndSort";
 import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
+import { TaskList } from "./components/TaskList";
 
 function App() {
   // const [tasks, dispatch] = taskReducer();
@@ -13,11 +14,7 @@ function App() {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
-  const [displayedTasks, dTaskDispatch] = useReducer(
-    displayedTaskReducer,
-    [],
-    () => []
-  );
+
   const [filterPart, filterDispatch] = useReducer(
     filterReducer,
     undefined,
@@ -29,9 +26,15 @@ function App() {
             category: "",
             completed: "all",
             searchText: "",
+            sortBy: "",
+            sortDirection: "",
           };
     }
   );
+
+  const displayedTasks = useMemo(() => {
+    return getFilteredAndSortedTasks(tasks, filterPart);
+  }, [tasks, filterPart]);
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -40,6 +43,7 @@ function App() {
   }, [filterPart]);
 
   const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -57,13 +61,7 @@ function App() {
         filterDispatch={filterDispatch}
         displayedTasks={displayedTasks}
       />
-      <TaskList
-        tasks={tasks}
-        dispatch={dispatch}
-        filter={filterPart}
-        displayedTasks={displayedTasks}
-        dTasksDispatch={dTaskDispatch}
-      />
+      <TaskList dispatch={dispatch} displayedTasks={displayedTasks} />
     </Box>
   );
 }

@@ -13,7 +13,7 @@ export const getMuiTheme = (mode: "light" | "dark") => {
   const hoverStyle = {
     "&:hover": {
       backgroundColor: mode === "light" ? "#1976d2" : "#90caf9",
-      color: mode === "light" ? "#fff" : "#000",
+      color: mode === "light" ? "#fff !important" : "#000 !important",
     },
   };
   const colorStyle = {
@@ -28,6 +28,7 @@ export const getMuiTheme = (mode: "light" | "dark") => {
   };
   const transitionStyle = {
     "&": {
+      willChange: "background-color, color",
       transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
     },
   };
@@ -53,6 +54,7 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       MuiCssBaseline: {
         styleOverrides: {
           "*": {
+            willChange: "background-color, color",
             transition:
               "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
           },

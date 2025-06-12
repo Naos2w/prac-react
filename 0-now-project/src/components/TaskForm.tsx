@@ -1,5 +1,3 @@
-// react hooks
-import { useRef, useState, useContext } from "react";
 // type
 import type { Action, Task } from "../types/task";
 import type { FilterAction, Filter } from "../types/filter";
@@ -20,7 +18,6 @@ import {
   ButtonGroup,
   IconButton,
   Tooltip,
-  type SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -29,8 +26,8 @@ import TaskIcon from "@mui/icons-material/Task";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ClearIcon from "@mui/icons-material/Clear";
-import SortIcon from "@mui/icons-material/Sort";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
+import { SortButton } from "./SortButton";
 
 type TaskFormProps = {
   tasks: Task[];
@@ -48,16 +45,11 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   displayedTasks,
 }) => {
   const theme = useTheme();
-  console.log("theme.palette.primary:", theme.palette?.primary);
-  console.log("theme.palette.primary.main:", theme.palette?.primary?.main);
   const hasNoTasks = tasks.length === 0;
   const hasCompletedTasks = displayedTasks.some((t) => t.completed);
   const completedTaskIds = displayedTasks
     .filter((t) => t.completed)
     .map((t) => t.id);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [searchText, setSearchText] = useState("");
   const {
     text,
     setText,
@@ -93,35 +85,11 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   const handleClickRemoveAll = (event: React.MouseEvent<HTMLElement>) => {
     dispatch({ type: "RESET" });
     filterDispatch({ type: "RESET" });
-  };
-  const handleClickFilter = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleFilterClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
-  const handleFilterTextChange = (event: SelectChangeEvent) => {
-    const value = event.target.value;
-    filterDispatch({ type: "SET_CATEGORY", option: value });
-  };
-  const handleFilterCompleted = (
-    event: React.MouseEvent<HTMLElement>,
-    newValue: string
-  ) => {
-    if (newValue !== null) {
-      filterDispatch({
-        type: "SET_COMPLETED",
-        option: newValue as "all" | "uncompleted" | "completed",
-      });
-    }
-  };
-  const handleFilterTextSearch = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = event.target.value;
-    setSearchText(value);
-    filterDispatch({ type: "SET_SEARCHTEXT", text: value });
+    filterDispatch({
+      type: "SET_SORT",
+      sortBy: "",
+      direction: "",
+    });
   };
   const handleClickGenData = () => {
     dispatch({ type: "GEN_DATA", tasks: generateFakeTasks() });
@@ -262,11 +230,11 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             disabled={hasNoTasks}
           />
 
-          <Tooltip title="Click to sort by time">
-            <IconButton disabled={hasNoTasks}>
-              <SortIcon />
-            </IconButton>
-          </Tooltip>
+          <SortButton
+            filter={filter}
+            filterDispatch={filterDispatch}
+            disabled={hasNoTasks}
+          />
 
           <ThemeToggle />
         </ButtonGroup>

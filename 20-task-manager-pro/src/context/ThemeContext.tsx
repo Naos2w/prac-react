@@ -23,8 +23,6 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const muiTheme = useMemo(() => getMuiTheme(theme), [theme]);
 
-  console.log("Theme string:", theme);
-  console.log("Mui theme:", muiTheme);
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };

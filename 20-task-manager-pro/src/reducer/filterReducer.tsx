@@ -14,6 +14,12 @@ export const filterReducer: React.Reducer<Filter, FilterAction> = (
       };
     case "SET_SEARCHTEXT":
       return { ...state, searchText: action.text };
+    case "SET_SORT":
+      return {
+        ...state,
+        sortBy: action.sortBy,
+        sortDirection: action.direction,
+      };
     case "RESET":
       return { category: "", completed: "all", searchText: "" };
     default:

@@ -1,4 +1,4 @@
-import type { Task, Action, dTaskAct } from "../types/task";
+import type { Task, Action } from "../types/task";
 
 export const taskReducer: React.Reducer<Task[], Action> = (state, action) => {
   switch (action.type) {
@@ -12,16 +12,11 @@ export const taskReducer: React.Reducer<Task[], Action> = (state, action) => {
       );
     case "GEN_DATA":
       return state.concat(action.tasks);
+    case "REORDER_TASKS":
+      return action.tasks;
     case "RESET":
       return [];
     default:
       return state;
   }
-};
-
-export const displayedTaskReducer: React.Reducer<Task[], dTaskAct> = (
-  state,
-  dTaskAct
-) => {
-  return dTaskAct.tasks;
 };
