@@ -28,6 +28,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import ClearIcon from "@mui/icons-material/Clear";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import { SortButton } from "./SortButton";
+import { CategorySelection } from "./CategorySelection";
 
 type TaskFormProps = {
   tasks: Task[];
@@ -105,7 +106,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
       }}
     >
       <Typography variant="h3" sx={{ my: 1, mx: 5 }}>
-        Task Manager
+        To-Do Task Manager
       </Typography>
       <Box
         sx={{
@@ -135,14 +136,15 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             sx={{
               color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
               mr: 1,
-              my: 0.5,
+              transform: "translateY(-10px)",
             }}
           />
           <TextField
             fullWidth
             id="input-task-content"
             label="Content"
-            variant="standard"
+            variant="filled"
+            size="small"
             ref={textRef}
             required
             value={text}
@@ -151,44 +153,18 @@ export const TaskForm: React.FC<TaskFormProps> = ({
               setText(event.target.value);
               if (textError && event.target.value) setTextError(false);
             }}
-            helperText="Input the content of task"
+            sx={{ my: 1 }}
+            helperText="Type the content of task"
             slotProps={{ htmlInput: { maxLength: 150 } }}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            flexGrow: 1, // 彈性展開
-            minWidth: { xs: "100%", sm: "200px" }, // 小螢幕滿版
-            maxWidth: { md: "200px" }, // 桌機限制最大寬
-            overflow: { xs: "hidden" },
-          }}
-        >
-          <CategoryIcon
-            sx={{
-              color: theme.palette.mode === "light" ? "#1976d2" : "#90caf9",
-              mr: 1,
-              my: 0.5,
-            }}
-          />
-          <TextField
-            fullWidth
-            id="input-category"
-            label="Category"
-            variant="standard"
-            ref={categoryRef}
-            required
-            value={category}
-            error={categoryError}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCategory(event.target.value);
-              if (categoryError && event.target.value) setCategoryError(false);
-            }}
-            helperText="Input the category"
-            slotProps={{ htmlInput: { maxLength: 20 } }}
-          />
-        </Box>
+        <CategorySelection
+          category={category}
+          setCategory={setCategory}
+          categoryError={categoryError}
+          setCategoryError={setCategoryError}
+          categoryRef={categoryRef}
+        />
 
         <ButtonGroup
           sx={{
@@ -218,12 +194,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Click to add fake tasks">
-            <IconButton onClick={handleClickGenData}>
-              <AdsClickIcon />
-            </IconButton>
-          </Tooltip>
-
           <FilterButton
             tasks={tasks}
             filter={filter}
@@ -238,6 +208,12 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           />
 
           <ThemeToggle />
+
+          <Tooltip title="Click to add fake tasks">
+            <IconButton onClick={handleClickGenData}>
+              <AdsClickIcon />
+            </IconButton>
+          </Tooltip>
         </ButtonGroup>
       </Box>
     </Box>
