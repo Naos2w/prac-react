@@ -26,12 +26,12 @@ export const getMuiTheme = (mode: "light" | "dark") => {
       color: mode === "light" ? "{}" : "#555",
     },
   };
-  const transitionStyle = {
-    "&": {
-      willChange: "background-color, color",
-      transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
-    },
-  };
+  // const transitionStyle = {
+  //   "&": {
+  //     willChange: "background-color, color",
+  //     transition: "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
+  //   },
+  // };
   const baseTheme = createTheme();
 
   return createTheme({
@@ -51,15 +51,15 @@ export const getMuiTheme = (mode: "light" | "dark") => {
     },
     components: {
       ...baseTheme.components,
-      MuiCssBaseline: {
-        styleOverrides: {
-          "*": {
-            willChange: "background-color, color",
-            transition:
-              "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
-          },
-        },
-      },
+      // MuiCssBaseline: {
+      //   styleOverrides: {
+      //     "*": {
+      //       willChange: "background-color, color",
+      //       transition:
+      //         "background-color 0.5s ease-in-out, color 0.5s ease-in-out",
+      //     },
+      //   },
+      // },
       MuiMenuItem: { styleOverrides: { root: selectedStyle } },
       MuiListItem: { styleOverrides: { root: selectedStyle } },
       MuiToggleButton: { styleOverrides: { root: selectedStyle } },
@@ -68,7 +68,7 @@ export const getMuiTheme = (mode: "light" | "dark") => {
           root: { ...hoverStyle, ...colorStyle, ...disabledColorStyle },
         },
       },
-      MuiCard: { styleOverrides: { root: transitionStyle } },
+      // MuiCard: { styleOverrides: { root: transitionStyle } },
     },
   });
 };

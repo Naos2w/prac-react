@@ -45,23 +45,26 @@ function App() {
   const theme = useTheme();
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        width: "100%",
-        backgroundColor: theme.palette.mode === "light" ? "#FCFCFC" : "#05070A",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <TaskForm
-        tasks={tasks}
-        dispatch={dispatch}
-        filter={filterPart}
-        filterDispatch={filterDispatch}
-        displayedTasks={displayedTasks}
-      />
-      <TaskList dispatch={dispatch} displayedTasks={displayedTasks} />
+    <Box className="App">
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          backgroundColor:
+            theme.palette.mode === "light" ? "#FCFCFC" : "#05070A",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <TaskForm
+          tasks={tasks}
+          dispatch={dispatch}
+          filter={filterPart}
+          filterDispatch={filterDispatch}
+          displayedTasks={displayedTasks}
+        />
+        <TaskList dispatch={dispatch} displayedTasks={displayedTasks} />
+      </Box>
     </Box>
   );
 }
